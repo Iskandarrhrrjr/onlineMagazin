@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaftoli Market - Hammaga Ochiq Savdo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: #1b5e20;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #ff6f00;
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Navbar */
+        nav {
+            background: #2e7d32;
+            padding: 12px 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Search Bar */
+        .search-container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .search-bar {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .search-bar button {
+            background: #1b5e20;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #1b5e20;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories {
+            list-style: none;
+        }
+        
+        .categories li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .categories li a {
+            color: #555;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .categories li a:hover {
+            color: #1b5e20;
+        }
+        
+        .categories li a span {
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            color: #e53935;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .product-location {
+            color: #777;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .product-date {
+            color: #999;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        
+        /* Add Product Button */
+        .add-product-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        
+        .add-product-btn:hover {
+            transform: scale(1.1);
+            background: #145a17;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #1b5e20;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        /* Product Detail Modal */
+        .product-detail-modal {
+            max-width: 800px;
+        }
+        
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .product-detail-image {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .product-detail-info h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-detail-price {
+            font-size: 28px;
+            color: #e53935;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .product-detail-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .product-detail-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .product-detail-meta div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-large {
+            padding: 12px 24px;
+            font-size: 16px;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            max-width: 500px;
+        }
+        
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #e53935;
+            font-weight: bold;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Chat Modal */
+        .chat-modal {
+            max-width: 400px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            position: relative;
+        }
+        
+        .message.sent {
+            align-self: flex-end;
+            background: #1b5e20;
+            color: white;
+        }
+        
+        .message.received {
+            align-self: flex-start;
+            background: #f1f1f1;
+            color: #333;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+        }
+        
+        .chat-input button {
+            background: #1b5e20;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                Nowzy
+            </div>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="openCartModal()">Savat</button>
+                <button class="btn btn-outline">Kirish</button>
+                <button class="btn btn-primary">Ro'yxatdan o'tish</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#" class="active">Bosh sahifa</a></li>
+            <li><a href="#">Elektronika</a></li>
+            <li><a href="#">Maishiy texnika</a></li>
+            <li><a href="#">Kiyim-kechak</a></li>
+            <li><a href="#">Uy-joy</a></li>
+            <li><a href="#">Avtomobillar</a></li>
+            <li><a href="#">Xizmatlar</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" placeholder="Mahsulotlarni qidirish...">
+            <button>Qidirish</button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Kategoriyalar</h3>
+            <ul class="categories">
+                <li><a href="#">Elektronika <span>1,234</span></a></li>
+                <li><a href="#">Telefonlar <span>892</span></a></li>
+                <li><a href="#">Noutbuklar <span>456</span></a></li>
+                <li><a href="#">Maishiy texnika <span>723</span></a></li>
+                <li><a href="#">Mebel <span>345</span></a></li>
+                <li><a href="#">Kiyim-kechak <span>1,567</span></a></li>
+                <li><a href="#">Sport <span>278</span></a></li>
+                <li><a href="#">Kitoblar <span>189</span></a></li>
+                <li><a href="#">Bolalar tovarlari <span>432</span></a></li>
+                <li><a href="#">Hayvonlar <span>156</span></a></li>
+            </ul>
+        </aside>
+        
+        <!-- Products -->
+        <main class="products-grid" id="productsContainer">
+            <!-- Mahsulotlar bu yerda ko'rsatiladi -->
+        </main>
+    </div>
+    
+    <!-- Add Product Button -->
+    <div class="add-product-btn" onclick="openAddProductModal()">
+        +
+    </div>
+    
+    <!-- Add Product Modal -->
+    <div class="modal" id="addProductModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeAddProductModal()">×</button>
+            <h2>Yangi mahsulot qo'shish</h2>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productTitle">Mahsulot nomi</label>
+                    <input type="text" id="productTitle" class="form-control" placeholder="Masalan: iPhone 13" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Tavsif</label>
+                    <textarea id="productDescription" class="form-control" placeholder="Mahsulot haqida batafsil ma'lumot..." required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Narx (UZS)</label>
+                        <input type="number" id="productPrice" class="form-control" placeholder="Masalan: 1200000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productCategory">Kategoriya</label>
+                        <select id="productCategory" class="form-control" required>
+                            <option value="">Kategoriyani tanlang</option>
+                            <option value="electronics">Elektronika</option>
+                            <option value="phones">Telefonlar</option>
+                            <option value="laptops">Noutbuklar</option>
+                            <option value="home">Uy-joy</option>
+                            <option value="clothing">Kiyim-kechak</option>
+                            <option value="sports">Sport</option>
+                            <option value="books">Kitoblar</option>
+                            <option value="other">Boshqa</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productLocation">Manzil</label>
+                        <input type="text" id="productLocation" class="form-control" placeholder="Masalan: Toshkent" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productPhone">Telefon raqam</label>
+                        <input type="tel" id="productPhone" class="form-control" placeholder="+998 XX XXX XX XX" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productImage">Rasm</label>
+                    <input type="file" id="productImage" class="form-control" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">E'lon joylashtirish</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productDetailModal">
+        <div class="modal-content product-detail-modal">
+            <button class="close-btn" onclick="closeProductDetailModal()">×</button>
+            <div class="product-detail" id="productDetailContent">
+                <!-- Mahsulot tafsilotlari bu yerda ko'rsatiladi -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content cart-modal">
+            <button class="close-btn" onclick="closeCartModal()">×</button>
+            <h2>Savat</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Savatdagi mahsulotlar bu yerda ko'rsatiladi -->
+            </div>
+            <div class="cart-total">
+                <span>Jami:</span>
+                <span id="cartTotal">0 UZS</span>
+            </div>
+            <button class="btn btn-primary btn-large" style="width: 100%;" onclick="checkout()">Buyurtma berish</button>
+        </div>
+    </div>
+    
+    <!-- Chat Modal -->
+    <div class="modal" id="chatModal">
+        <div class="modal-content chat-modal">
+            <div class="chat-header">
+                <h3 id="chatSellerName">Sotuvchi bilan suhbat</h3>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Xabarlar bu yerda ko'rsatiladi -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Xabar yozing..." onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mahsulotlar ma'lumotlari (localStorage dan olinadi)
+        let products = JSON.parse(localStorage.getItem('products')) || [
+            {
+                id: 1,
+                title: "iPhone 13 Pro",
+                description: "Yangi holatda, 128GB, qora rang. Barcha aksessuarlar bilan.",
+                price: 8000000,
+                category: "phones",
+                location: "Toshkent",
+                phone: "+998 90 123 45 67",
+                image: "https://images.unsplash.com/photo-1632661674596-618e45e56c53?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                date: "2024-01-15",
+                seller: "Ali Valiyev"
+            },
+            {
+                id: 2,
+                title: "MacBook Air M1",
+                description: "2020 yil, 8GB RAM, 256GB SSD. Ajoyib holatda.",
+                price: 7500000,
+                category: "laptops",
+                location: "Samarqand",
+                phone: "+998 91 234 56 78",
+                image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                date: "2024-01-14",
+                seller: "Dilshod Rahimov"
+            },
+            {
+                id: 3,
+                title: "Samsung Galaxy S21",
+                description: "Oq rang, 256GB, 1 yil garantiya qolgan.",
+                price: 4500000,
+                category: "phones",
+                location: "Buxoro",
+                phone: "+998 93 345 67 89",
+                image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                date: "2024-01-13",
+                seller: "Sardor Qodirov"
+            },
+            {
+                id: 4,
+                title: "Nike Air Jordan",
+                description: "42 o'lcham, yangi, quti bilan.",
+                price: 850000,
+                category: "clothing",
+                location: "Toshkent",
+                phone: "+998 94 456 78 90",
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                date: "2024-01-12",
+                seller: "Javohir Rasulov"
+            },
+            {
+                id: 5,
+                title: "Sovutgich Artel",
+                description: "220 litr, ishlagan holatda, tez sotiladi.",
+                price: 2500000,
+                category: "home",
+                location: "Andijon",
+                phone: "+998 95 567 89 01",
+                image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                date: "2024-01-11",
+                seller: "Shohruh To'xtayev"
+            },
+            {
+                id: 6,
+                title: "Kitoblar to'plami",
+                description: "100 ta turli janrdagi kitoblar. Hammasi yangi.",
+                price: 500000,
+                category: "books",
+                location: "Farg'ona",
+                phone: "+998 97 789 01 23",
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                date: "2024-01-10",
+                seller: "Zarina Xolmatova"
+            }
+        ];
+
+        // Savat ma'lumotlari
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Chat ma'lumotlari
+        let currentChatProduct = null;
+        let messages = JSON.parse(localStorage.getItem('messages')) || {};
+
+        // Sahifa yuklanganda mahsulotlarni ko'rsatish
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts();
+            updateCartCount();
+        });
+
+        // Mahsulotlarni ekranga chiqarish
+        function displayProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">${product.price.toLocaleString()} UZS</div>
+                        <div class="product-location">📍 ${product.location}</div>
+                        <div class="product-date">${formatDate(product.date)}</div>
+                    </div>
+                `;
+                
+                // Mahsulotni bosganda tafsilotlarni ko'rsatish
+                productCard.addEventListener('click', () => {
+                    openProductDetailModal(product);
+                });
+                
+                container.appendChild(productCard);
+            });
+        }
+
+        // Sana formatlash
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return "Kecha";
+            if (diffDays === 2) return "2 kun oldin";
+            if (diffDays <= 7) return `${diffDays} kun oldin`;
+            
+            return date.toLocaleDateString('uz-UZ');
+        }
+
+        // Modalni ochish
+        function openAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'flex';
+        }
+
+        // Modalni yopish
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+            document.getElementById('addProductForm').reset();
+        }
+
+        // Mahsulot tafsilotlari modalini ochish
+        function openProductDetailModal(product) {
+            const modalContent = document.getElementById('productDetailContent');
+            modalContent.innerHTML = `
+                <div>
+                    <img src="${product.image}" alt="${product.title}" class="product-detail-image">
+                </div>
+                <div class="product-detail-info">
+                    <h1>${product.title}</h1>
+                    <div class="product-detail-price">${product.price.toLocaleString()} UZS</div>
+                    <div class="product-detail-description">${product.description}</div>
+                    <div class="product-detail-meta">
+                        <div><strong>📍 Manzil:</strong> ${product.location}</div>
+                        <div><strong>📞 Telefon:</strong> ${product.phone}</div>
+                        <div><strong>👤 Sotuvchi:</strong> ${product.seller}</div>
+                        <div><strong>📅 E'lon sanasi:</strong> ${formatDate(product.date)}</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-large" onclick="addToCart(${product.id})">Savatga qo'shish</button>
+                        <button class="btn btn-outline btn-large" onclick="openChatModal(${product.id})">Sotuvchi bilan yozish</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('productDetailModal').style.display = 'flex';
+        }
+
+        // Mahsulot tafsilotlari modalini yopish
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').style.display = 'none';
+        }
+
+        // Savat modalini ochish
+        function openCartModal() {
+            updateCartDisplay();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        // Savat modalini yopish
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        // Savatni yangilash
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (product) {
+                    total += product.price * item.quantity;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <img src="${product.image}" alt="${product.title}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${product.title}</div>
+                            <div class="cart-item-price">${product.price.toLocaleString()} UZS</div>
+                            <div>Soni: ${item.quantity}</div>
+                        </div>
+                        <button class="btn btn-outline" onclick="removeFromCart(${item.productId})">O'chirish</button>
+                    `;
+                    cartItems.appendChild(cartItem);
+                }
+            });
+            
+            cartTotal.textContent = `${total.toLocaleString()} UZS`;
+        }
+
+        // Savatga mahsulot qo'shish
+        function addToCart(productId) {
+            const existingItem = cart.find(item => item.productId === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    productId: productId,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            closeProductDetailModal();
+            alert('Mahsulot savatga qo\'shildi!');
+        }
+
+        // Savatdan mahsulotni o'chirish
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.productId !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+        }
+
+        // Savatdagi mahsulotlar sonini yangilash
+        function updateCartCount() {
+            const cartButton = document.querySelector('.btn-outline');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartButton.textContent = `Savat (${totalItems})`;
+            } else {
+                cartButton.textContent = 'Savat';
+            }
+        }
+
+        // Chat modalini ochish
+        function openChatModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentChatProduct = product;
+            document.getElementById('chatSellerName').textContent = `${product.seller} bilan suhbat`;
+            
+            // Chat xabarlarini yuklash
+            const chatId = `chat_${productId}`;
+            if (!messages[chatId]) {
+                messages[chatId] = [
+                    {
+                        text: "Assalomu alaykum! Ushbu mahsulot haqida qo'shimcha ma'lumot olishim mumkinmi?",
+                        sender: "user",
+                        time: new Date().toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })
+                    },
+                    {
+                        text: "Assalomu alaykum! Albatta, qanday savolingiz bor?",
+                        sender: "seller",
+                        time: new Date().toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })
+                    }
+                ];
+                localStorage.setItem('messages', JSON.stringify(messages));
+            }
+            
+            displayChatMessages(chatId);
+            document.getElementById('chatModal').style.display = 'flex';
+            closeProductDetailModal();
+        }
+
+        // Chat modalini yopish
+        function closeChatModal() {
+            document.getElementById('chatModal').style.display = 'none';
+            currentChatProduct = null;
+        }
+
+        // Chat xabarlarini ko'rsatish
+        function displayChatMessages(chatId) {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            
+            if (messages[chatId]) {
+                messages[chatId].forEach(message => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message');
+                    messageDiv.classList.add(message.sender === 'user' ? 'sent' : 'received');
+                    messageDiv.innerHTML = `
+                        <div>${message.text}</div>
+                        <div style="font-size: 10px; text-align: ${message.sender === 'user' ? 'right' : 'left'}; margin-top: 5px;">${message.time}</div>
+                    `;
+                    chatMessages.appendChild(messageDiv);
+                });
+            }
+            
+            // Pastga aylantirish
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Xabar yuborish
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messageText = input.value.trim();
+            
+            if (!messageText || !currentChatProduct) return;
+            
+            const chatId = `chat_${currentChatProduct.id}`;
+            
+            // Yangi xabarni qo'shish
+            const newMessage = {
+                text: messageText,
+                sender: "user",
+                time: new Date().toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })
+            };
+            
+            messages[chatId].push(newMessage);
+            localStorage.setItem('messages', JSON.stringify(messages));
+            
+            // Xabarni ko'rsatish
+            displayChatMessages(chatId);
+            
+            // Inputni tozalash
+            input.value = '';
+            
+            // Sotuvchining javobini simulyatsiya qilish
+            setTimeout(() => {
+                const responses = [
+                    "Qo'shimcha ma'lumot kerak bo'lsa, so'rashingiz mumkin.",
+                    "Mahsulot haqida batafsil ma'lumot berishim mumkin.",
+                    "Narx bo'yicha kelishish imkoniyati bor.",
+                    "Mahsulotni ko'rib chiqish uchun kelishingiz mumkin."
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                
+                const sellerMessage = {
+                    text: randomResponse,
+                    sender: "seller",
+                    time: new Date().toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })
+                };
+                
+                messages[chatId].push(sellerMessage);
+                localStorage.setItem('messages', JSON.stringify(messages));
+                displayChatMessages(chatId);
+            }, 2000);
+        }
+
+        // Enter tugmasi bosilganda xabar yuborish
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Buyurtma berish
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Savat bo\'sh!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.productId);
+                return sum + (product ? product.price * item.quantity : 0);
+            }, 0);
+            
+            alert(`Buyurtma qabul qilindi! Jami summa: ${total.toLocaleString()} UZS\nTez orada siz bilan bog'lanamiz.`);
+            
+            // Savatni tozalash
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            closeCartModal();
+        }
+
+        // Yangi mahsulot qo'shish
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('productTitle').value;
+            const description = document.getElementById('productDescription').value;
+            const price = parseInt(document.getElementById('productPrice').value);
+            const category = document.getElementById('productCategory').value;
+            const location = document.getElementById('productLocation').value;
+            const phone = document.getElementById('productPhone').value;
+            const imageFile = document.getElementById('productImage').files[0];
+            
+            if (!imageFile) {
+                alert('Iltimos, mahsulot uchun rasm yuklang!');
+                return;
+            }
+            
+            // Rasmni URL ga aylantirish
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newProduct = {
+                    id: Date.now(),
+                    title,
+                    description,
+                    price,
+                    category,
+                    location,
+                    phone,
+                    seller: "Siz", // Yangi mahsulot qo'shgan foydalanuvchi
+                    image: e.target.result,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                
+                products.unshift(newProduct);
+                localStorage.setItem('products', JSON.stringify(products));
+                displayProducts();
+                closeAddProductModal();
+                alert('Mahsulot muvaffaqiyatli qo\'shildi!');
+            };
+            reader.readAsDataURL(imageFile);
+        });
+
+        // Tashqi modalni yopish
+        window.addEventListener('click', function(e) {
+            const modals = ['addProductModal', 'productDetailModal', 'cartModal', 'chatModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (e.target === modal) {
+                    if (modalId === 'addProductModal') closeAddProductModal();
+                    if (modalId === 'productDetailModal') closeProductDetailModal();
+                    if (modalId === 'cartModal') closeCartModal();
+                    if (modalId === 'chatModal') closeChatModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
